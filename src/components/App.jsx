@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ContactForm } from './Phonebook/ContactForm';
 import { ContactList } from './Phonebook/ContactList';
 import { Filter } from './Phonebook/Filter';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilter, setContacts } from './redux/Phonebook/actions';
-
-export const LOCAL_NAME = 'Contacts';
+import { setContacts, setFilter } from './redux/Phonebook/phonebookSlice';
+// import { setFilter, setContacts } from './redux/Phonebook/actions';
+// import { LOCAL_NAME } from './redux/Phonebook/phonebookState';
 export const App = () => {
   // const [contacts, setContacts] = useState(() =>
   //   JSON.parse(localStorage.getItem(LOCAL_NAME) || [])
@@ -16,9 +16,9 @@ export const App = () => {
   const dispatch = useDispatch();
   const { contacts, filter } = useSelector(state => state.phonebook);
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_NAME, JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem(LOCAL_NAME, JSON.stringify(contacts));
+  // }, [contacts]);
 
   const hendleChangeFilter = event => dispatch(setFilter(event.target.value));
   // const hendleChangeFilter = event => {

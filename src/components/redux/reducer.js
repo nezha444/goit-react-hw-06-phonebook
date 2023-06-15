@@ -1,5 +1,9 @@
-import { phonebookReducer } from './Phonebook/phonebookReduser';
+import { combineReducers } from 'redux';
+import { phonebookReducer } from './Phonebook/phonebookSlice';
 
-export const reducer = {
+// export const reducer = {
+//   phonebook: phonebookReducer,
+// };
+export const reducer = combineReducers({
   phonebook: phonebookReducer,
-};
+});
