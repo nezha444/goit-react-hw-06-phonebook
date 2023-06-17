@@ -23,7 +23,7 @@ export const ContactForm = () => {
       alert('Contact already exists');
       return;
     }
-    dispatch(addContacts(contacts.concat(newContact)));
+    dispatch(addContacts(newContact));
     // setContacts(prev => prev.concat(newContact));
   };
 

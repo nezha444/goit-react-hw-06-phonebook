@@ -10,7 +10,7 @@ export const phonebookSlice = createSlice({
   initialState: phonebookState,
   reducers: {
     addContacts: (state, action) => {
-      state.contacts = action.payload;
+      state.contacts.push(action.payload);
     },
 
     removeContact: (state, action) => {

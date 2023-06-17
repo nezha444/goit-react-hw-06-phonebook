@@ -5,6 +5,7 @@ export const Filter = () => {
   const { filter } = useSelector(state => state.phonebook);
   const dispatch = useDispatch();
   const hendleChangeFilter = event => dispatch(setFilter(event.target.value));
+
   return (
     <div>
       <p>Find contacts by name</p>
