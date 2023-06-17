@@ -1,10 +1,34 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts } from '../redux/Phonebook/phonebookSlice';
 
-export const ContactForm = ({ handleSubmit }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const { contacts } = useSelector(state => state.phonebook);
+
+  const handleSubmit = (name, number) => {
+    const newContact = {
+      id: `${nanoid()}`,
+      name: name,
+      number: number,
+    };
+    const isExist = contacts.some(
+      el =>
+        (el.name && el.name.toLowerCase() === name.toLowerCase()) ||
+        (el.number && el.number === number)
+    );
+    if (isExist) {
+      alert('Contact already exists');
+      return;
+    }
+    dispatch(addContacts(contacts.concat(newContact)));
+    // setContacts(prev => prev.concat(newContact));
+  };
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
   const handleInput = event => {
     const { name, value } = event.target;
     if (name === 'name') {
@@ -55,5 +79,5 @@ export const ContactForm = ({ handleSubmit }) => {
   );
 };
 ContactForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
 };

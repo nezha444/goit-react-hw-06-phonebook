@@ -1,12 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { phonebookState } from './phonebookState';
+
+export const phonebookState = {
+  contacts: [],
+  filter: '',
+};
 
 export const phonebookSlice = createSlice({
   name: 'phonebook',
   initialState: phonebookState,
   reducers: {
-    setContacts: (state, action) => {
+    addContacts: (state, action) => {
       state.contacts = action.payload;
+    },
+
+    removeContact: (state, action) => {
+      state.contacts = state.contacts.filter(
+        contact => contact.id !== action.payload
+      );
     },
 
     setFilter: (state, action) => {
@@ -17,4 +27,4 @@ export const phonebookSlice = createSlice({
 
 export const phonebookReducer = phonebookSlice.reducer;
 
-export const { setContacts, setFilter } = phonebookSlice.actions;
+export const { addContacts, removeContact, setFilter } = phonebookSlice.actions;

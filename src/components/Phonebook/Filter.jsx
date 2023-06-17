@@ -1,6 +1,10 @@
-import PropTypes from 'prop-types';
+import { setFilter } from '../redux/Phonebook/phonebookSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const Filter = ({ hendleChangeFilter, filter }) => {
+export const Filter = () => {
+  const { filter } = useSelector(state => state.phonebook);
+  const dispatch = useDispatch();
+  const hendleChangeFilter = event => dispatch(setFilter(event.target.value));
   return (
     <div>
       <p>Find contacts by name</p>
@@ -12,8 +16,4 @@ export const Filter = ({ hendleChangeFilter, filter }) => {
       />
     </div>
   );
-};
-Filter.propTypes = {
-  hendleChangeFilter: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
 };

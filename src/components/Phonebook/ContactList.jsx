@@ -1,16 +1,31 @@
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeContact } from '../redux/Phonebook/phonebookSlice';
 
-export const ContactList = ({ contacts, deleteContact }) => {
+export const ContactList = () => {
+  const dispatch = useDispatch();
+  const { contacts, filter } = useSelector(state => state.phonebook);
+
+  const getFilterContacts = () => {
+    return contacts.filter(
+      contact =>
+        contact.name &&
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
   return (
     <div>
       <p>Contacts</p>
       <ul>
-        {contacts.map(contact => (
+        {getFilterContacts().map(contact => (
           <li key={contact.id}>
             <p>
               {contact.name}: {contact.number}
             </p>
-            <button onClick={() => deleteContact(contact.id)} type="button">
+            <button
+              onClick={() => dispatch(removeContact(contact.id))}
+              type="button"
+            >
               Delete
             </button>
           </li>
@@ -20,6 +35,6 @@ export const ContactList = ({ contacts, deleteContact }) => {
   );
 };
 ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  deleteContact: PropTypes.func.isRequired,
+  contacts: PropTypes.array,
+  deleteContact: PropTypes.func,
 };
